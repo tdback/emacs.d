@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-evil.el --- muscle memory -*- lexical-binding: t; -*-
+
+;;; Code:
 
 (use-package evil
   :init
@@ -7,6 +9,7 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump nil)
   (setq evil-insert-state-cursor t)
+  (setq evil-disable-insert-state-bindings t)
   :config
   (evil-mode 1)
 
@@ -31,3 +34,4 @@
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 (provide 'td-evil)
+;;; td-evil.el ends here
