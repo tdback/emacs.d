@@ -1,15 +1,17 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-common.el --- common configuration -*- lexical-binding: t; -*-
+
+;;; Code:
 
 (use-package async
   :ensure t
   :config
   (async-bytecomp-package-mode 1))
 
-(use-package beframe
+(use-package avy
   :ensure t
-  :config
-  (global-set-key (kbd "C-c b") 'beframe-prefix-map)
-  (beframe-mode 1))
+  :bind (("C-'" . avy-goto-char-timer))
+  :custom
+  (avy-timeout-seconds 0.5))
 
 (use-package consult
   :ensure t
@@ -38,6 +40,12 @@
   (doom-modeline-height 10)
   (doom-modeline-buffer-encoding nil)
   (doom-modeline-modal-icon nil))
+
+(use-package eat
+  :ensure t
+  :bind (("C-x E" . eat))
+  :custom
+  (eat-enable-autoline-mode t))
 
 (use-package ef-themes
   :ensure t
@@ -143,3 +151,4 @@
   (which-key-mode))
 
 (provide 'td-common)
+;;; td-common.el ends here
