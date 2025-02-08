@@ -1,6 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-org.el --- org-mode configuration -*- lexical-binding: t; -*-
 
-;;; ----- Bootstrapping Functions -----
+;;; Code:
 
 (defun td/org-font-setup ()
   (font-lock-add-keywords 'org-mode
@@ -15,32 +15,26 @@
                   (org-level-4 . 1.0)))
     (set-face-attribute (car face)
                         nil
-                        :font "Iosevka Comfy Motion Fixed"
+                        :font "Iosevka Comfy"
                         :weight 'regular
                         :height (cdr face)))
   (set-face-attribute 'org-block
                       nil
-                      :foreground nil
                       :inherit 'fixed-pitch)
   (set-face-attribute 'org-code
                       nil
-                      :foreground nil
                       :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-table
                       nil
-                      :foreground nil
                       :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-verbatim
                       nil
-                      :foreground nil
                       :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-special-keyword
                       nil
-                      :foreground nil
                       :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line
                       nil
-                      :foreground nil
                       :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox
                       nil
@@ -52,10 +46,8 @@
   (visual-line-mode 1)
   (setq evil-auto-indent nil))
 
-;;; ----- Package Declaration -----
-
 (use-package org
-  :ensure t
+  :ensure nil
   :hook (org-mode . td/org-mode-setup)
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda))
@@ -170,3 +162,4 @@
   (add-to-list 'org-structure-template-alist '("sq" . "src sqlite")))
 
 (provide 'td-org)
+;;; td-org.el ends here

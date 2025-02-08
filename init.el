@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init.el --- emacs init file -*- lexical-binding: t; -*-
+
+;;; Code:
 
 ;; Setup package.el and `use-package'.
 (require 'package)
@@ -18,7 +20,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;;; ----- Package Imports -----
+;;; Package Imports
 
 ;; Load custom modules.
 (add-to-list 'load-path '"~/.emacs.d/lisp")
@@ -33,7 +35,7 @@
 (require 'td-programming)
 (require 'td-writing)
 
-;;; ----- Sane Defaults -----
+;;; Sane Defaults
 
 (column-number-mode)                                ; Display columns in our modeline.
 (global-display-line-numbers-mode t)                ; Display line numbers in the buffer/modeline.
@@ -57,7 +59,7 @@
 (setq save-place-forget-unreadable-files nil)       ; Always save our place in the file.
 (setq display-line-numbers-type 'relative)          ; Show relative line numbers.
 
-;;; ----- Keybinds -----
+;;; Keybinds
 
 ;; Make escape quit prompts.
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -66,7 +68,7 @@
 (global-set-key (kbd "C-x n a") 'td/increment-number-at-point)
 (global-set-key (kbd "C-x n x") 'td/decrement-number-at-point)
 
-;;; ----- Hooks -----
+;;; Hooks
 
 ;; Display startup stats.
 (add-hook 'emacs-startup-hook #'td/display-startup-time)
@@ -82,7 +84,8 @@
   (td/set-font))
 
 ;; Disable line numbers for some modes.
-(dolist (mode '(eshell-mode-hook
+(dolist (mode '(eat-mode-hook
+                eshell-mode-hook
                 dired-mode-hook
                 olivetti-mode-hook
                 org-mode-hook
@@ -97,3 +100,5 @@
                 lisp-mode-hook
                 scheme-mode-hook))
   (add-hook mode 'prettify-symbols-mode))
+
+;;; init.el ends here

@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-present.el --- org-powered presentations -*- lexical-binding: t; -*-
+
+;;; Code:
 
 (use-package org-present
   :ensure t
@@ -25,3 +27,4 @@
   (org-show-children))
 
 (provide 'td-present)
+;;; td-present.el ends here

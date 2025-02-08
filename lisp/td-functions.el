@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-functions --- custom elisp functions -*- lexical-binding: t; -*-
+
+;;; Code:
 
 (defun td/display-startup-time ()
   (message (if (daemonp)
@@ -13,15 +15,15 @@
   (when (display-graphic-p)
     (message "Setting font...")
     (set-face-attribute 'default nil
-                        :font "Iosevka Comfy Motion Fixed"
+                        :font "Iosevka Comfy"
                         :weight 'normal
                         :height 200)
     (set-face-attribute 'fixed-pitch nil
-                        :font "Iosevka Comfy Motion Fixed"
+                        :font "Iosevka Comfy"
                         :weight 'normal
                         :height 200)
     (set-face-attribute 'variable-pitch nil
-                        :font "Iosevka Comfy Motion Fixed"
+                        :font "Iosevka Comfy"
                         :weight 'normal
                         :height 200)))
 
@@ -62,3 +64,4 @@
     (load-theme theme t)))
 
 (provide 'td-functions)
+;;; td-functions.el ends here

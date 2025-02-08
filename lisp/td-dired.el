@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-dired.el --- dired configuration -*- lexical-binding: t; -*-
+
+;;; Code:
 
 (use-package dired
   :ensure nil
@@ -25,3 +27,4 @@
     "H" 'dired-hide-dotfiles-mode))
 
 (provide 'td-dired)
+;;; td-dired.el ends here

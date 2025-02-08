@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-mu4e.el --- the superior email client -*- lexical-binding: t; -*-
+
+;;; Code:
 
 (use-package mu4e
   :ensure nil
@@ -61,3 +63,4 @@
   (add-hook 'message-send-hook 'org-mime-confirm-when-no-multipart))
 
 (provide 'td-mu4e)
+;;; td-mu4e.el ends here
