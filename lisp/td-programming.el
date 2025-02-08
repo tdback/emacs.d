@@ -1,6 +1,8 @@
-;;; -*- lexical-binding: t; -*-
+;;; td-programming.el --- for writing code -*- lexical-binding: t; -*-
 
-;;; ----- Completion -----
+;;; Code:
+
+;;; Completion
 
 (use-package cape
   :defer 10
@@ -65,7 +67,7 @@
   :custom
   (completion-styles '(orderless flex)))
 
-;;; ----- Modes -----
+;;; Modes
 
 (use-package dockerfile-mode
   :ensure t
@@ -97,13 +99,18 @@
   :ensure t
   :defer t)
 
-;;; ----- Tooling & Enhancements -----
+;;; Tooling & Enhancements
 
 (use-package compile
   ;; Using `C-u' before recompile acts like `M-x compile'.
   :bind (("C-x C-m" . recompile))
   :custom
   (compilation-scroll-output t))
+
+(use-package direnv
+  :ensure t
+  :config
+  (direnv-mode))
 
 (use-package magit
   :ensure t
@@ -121,3 +128,4 @@
          . paren-face-mode))
 
 (provide 'td-programming)
+;;; td-programming.el ends here
