@@ -15,15 +15,15 @@
   (when (display-graphic-p)
     (message "Setting font...")
     (set-face-attribute 'default nil
-                        :font "Iosevka Comfy"
+                        :font "Aporetic Sans Mono"
                         :weight 'normal
                         :height 200)
     (set-face-attribute 'fixed-pitch nil
-                        :font "Iosevka Comfy"
+                        :font "Aporetic Sans Mono"
                         :weight 'normal
                         :height 200)
     (set-face-attribute 'variable-pitch nil
-                        :font "Iosevka Comfy"
+                        :font "Aporetic Sans Mono"
                         :weight 'normal
                         :height 200)))
 

@@ -15,7 +15,7 @@
                   (org-level-4 . 1.0)))
     (set-face-attribute (car face)
                         nil
-                        :font "Iosevka Comfy"
+                        :font "Aporetic Sans Mono"
                         :weight 'regular
                         :height (cdr face)))
   (set-face-attribute 'org-block
