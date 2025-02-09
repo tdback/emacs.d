@@ -11,7 +11,7 @@
   :ensure t
   :bind (("C-'" . avy-goto-char-timer))
   :custom
-  (avy-timeout-seconds 0.5))
+  (avy-timeout-seconds 0.25))
 
 (use-package consult
   :ensure t
