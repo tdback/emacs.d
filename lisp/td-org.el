@@ -3,12 +3,6 @@
 ;;; Code:
 
 (defun td/org-font-setup ()
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 ()
-                                  (compose-region (match-beginning 1)
-                                                  (match-end 1)
-                                                  "•"))))))
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.15)
                   (org-level-3 . 1.1)
@@ -54,13 +48,16 @@
   :config
   (setq org-ellipsis " ▾"
         org-hide-emphasis-markers t
-        org-agenda-start-with-log-mode t
-        org-log-done 'time
+        org-pretty-entities t
+        org-startup-folded t
+        org-hide-leading-stars t
+        org-edit-src-content-indentation 2
         org-fontify-whole-heading-line t
         org-fontify-quote-and-verse-blocks t
-        org-src-tab-acts-natively t
-        org-edit-src-content-indentation 2
         org-hide-block-startup nil
+        org-src-tab-acts-natively t
+        org-agenda-start-with-log-mode t
+        org-log-done 'time
         org-log-into-drawer t
         org-agenda-files '("~/Documents/org/tasks.org"
                            "~/Documents/org/ideas.org")
@@ -133,6 +130,7 @@
          (org-agenda-finalize-hook . org-modern-agenda))
   :custom ((org-modern-todo t)
            (org-modern-table nil)
+           (org-modern-star nil)
            (org-modern-variable-pitch nil)
            (org-modern-block-fringe nil))
   :commands
