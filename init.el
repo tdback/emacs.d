@@ -27,8 +27,8 @@
 
 (require 'td-common)
 (require 'td-dired)
-(require 'td-evil)
 (require 'td-functions)
+(require 'td-meow)
 (require 'td-mu4e)
 (require 'td-org)
 (require 'td-present)
