@@ -6,7 +6,8 @@
   :ensure nil
   :commands (dired dired-jump)
   :hook ((dired-mode . dired-hide-details-mode))
-  :bind (:map dired-mode-map ("C-x C-j" . dired-jump))
+  :bind (:map dired-mode-map (("C-x C-j" . dired-jump)
+                              ("b"       . dired-up-directory)))
   :config
   (setq dired-listing-switches "-Agho --group-directories-first"
         dired-omit-files "^\\.[^.].*"
@@ -22,9 +23,7 @@
 (use-package dired-hide-dotfiles
   :ensure t
   :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
+  :bind (("H" . dired-hide-dotfiles-mode)))
 
 (provide 'td-dired)
 ;;; td-dired.el ends here

@@ -9,16 +9,17 @@
 
 (use-package avy
   :ensure t
-  :bind (("C-'" . avy-goto-char-timer))
+  :bind (("M-j" . avy-goto-char-timer))
   :custom
   (avy-timeout-seconds 0.25))
 
 (use-package consult
   :ensure t
   :demand t
-  :bind (("C-s"     . consult-ripgrep)
-         ("C-M-l"   . consult-imenu)
-         ("C-M-j"   . consult-buffer)
+  :bind (("M-s g"   . consult-ripgrep)
+         ("M-s f"   . consult-find)
+         ("M-s i"   . consult-imenu)
+         ("M-s l"   . consult-line)
          ("C-x C-b" . consult-buffer)
          :map minibuffer-local-map
          ("C-r"     . consult-history)))
@@ -53,6 +54,16 @@
   ;; By default start with a light theme.
   (load-theme 'ef-day t))
 
+(use-package emacs
+  :ensure nil
+  :demand t
+  :bind (("M-c"     . capitalize-dwim)
+         ("M-u"     . upcase-dwim)
+         ("M-l"     . downcase-dwim)
+         ("C-x S"   . eshell)
+         ("C-x M-t" . transpose-regions)
+         ("C-g"     . td/quit-if-not-in-macro)))
+
 (use-package embark
   :ensure t
   :bind (("C-."   . embark-act)
@@ -70,7 +81,7 @@
   :ensure t
   :after embark)
 
-(use-package helpful
+(use-package help
   :ensure t
   :custom
   (counsel-describe-function-function #'helpful-callable)

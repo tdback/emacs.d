@@ -27,6 +27,15 @@
                         :weight 'normal
                         :height 200)))
 
+(defun td/quit-if-not-in-macro ()
+  (interactive)
+  (if (or defining-kbd-macro executing-kbd-macro)
+      (progn
+        (if (region-active-p)
+            (deactivate-mark)
+          (message "Macro running. Can't quit.")))
+    (keyboard-quit)))
+
 (defun td/increment-number-at-point (&optional increment)
   "Increment number at point like vim's `C-a'."
   (interactive "p")
