@@ -1,6 +1,20 @@
-;;; td-common.el --- common configuration -*- lexical-binding: t; -*-
+;;; td-common.el --- a step up from vanilla -*- lexical-binding: t; -*-
 
 ;;; Code:
+
+;;; Functions
+
+(defun td/quit-if-not-in-macro ()
+  "Allow for an unintentional `C-g' when recording macros."
+  (interactive)
+  (if (or defining-kbd-macro executing-kbd-macro)
+      (progn
+        (if (region-active-p)
+            (deactivate-mark)
+          (message "Macro running. Can't quit.")))
+    (keyboard-quit)))
+
+;;; Packages
 
 (use-package async
   :ensure t
@@ -33,34 +47,13 @@
   :custom
   (consult-dir-project-list-function nil))
 
-(use-package doom-modeline
-  :ensure t
-  :init
-  (doom-modeline-mode 1)
-  :custom
-  (doom-modeline-height 10)
-  (doom-modeline-buffer-encoding nil)
-  (doom-modeline-modal-icon nil))
-
-(use-package eat
-  :ensure t
-  :bind (("C-x E" . eat))
-  :custom
-  (eat-enable-autoline-mode t))
-
-(use-package ef-themes
-  :ensure t
-  :config
-  ;; By default start with a light theme.
-  (load-theme 'ef-day t))
-
 (use-package emacs
   :ensure nil
   :demand t
   :bind (("M-c"     . capitalize-dwim)
          ("M-u"     . upcase-dwim)
          ("M-l"     . downcase-dwim)
-         ("C-x S"   . eshell)
+         ("C-x E"   . eshell)
          ("C-x M-t" . transpose-regions)
          ("C-g"     . td/quit-if-not-in-macro)))
 
@@ -81,7 +74,11 @@
   :ensure t
   :after embark)
 
-(use-package help
+(use-package expand-region
+  :ensure t
+  :bind ([remap mark-paragraph] . er/expand-region))
+
+(use-package helpful
   :ensure t
   :custom
   (counsel-describe-function-function #'helpful-callable)
