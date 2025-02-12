@@ -33,6 +33,8 @@
 (require 'td-org)
 (require 'td-present)
 (require 'td-programming)
+(require 'td-shell)
+(require 'td-theme)
 (require 'td-writing)
 
 ;;; Sane Defaults
@@ -59,46 +61,9 @@
 (setq save-place-forget-unreadable-files nil)       ; Always save our place in the file.
 (setq display-line-numbers-type 'relative)          ; Show relative line numbers.
 
-;;; Keybinds
-
-;; Make escape quit prompts.
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-;; Increment/decrement a number at point, similar to vim's `C-a' and `C-x'.
-(global-set-key (kbd "C-x n a") 'td/increment-number-at-point)
-(global-set-key (kbd "C-x n x") 'td/decrement-number-at-point)
-
 ;;; Hooks
-
-;; Display startup stats.
-(add-hook 'emacs-startup-hook #'td/display-startup-time)
 
 ;; Delete all trailing whitespace.
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
-
-;; Fix font issues when running as a daemon.
-(if (daemonp)
-    (add-hook 'after-make-frame-functions (lambda (frame)
-                                            (with-selected-frame frame
-                                              (td/set-font))))
-  (td/set-font))
-
-;; Disable line numbers for some modes.
-(dolist (mode '(eat-mode-hook
-                eshell-mode-hook
-                dired-mode-hook
-                olivetti-mode-hook
-                org-mode-hook
-                shell-mode-hook
-                term-mode-hook
-                vterm-mode-hook))
-  (add-hook mode (lambda ()
-                   (display-line-numbers-mode 0))))
-
-;; Prettify the lambda symbol.
-(dolist (mode '(emacs-lisp-mode-hook
-                lisp-mode-hook
-                scheme-mode-hook))
-  (add-hook mode 'prettify-symbols-mode))
 
 ;;; init.el ends here
