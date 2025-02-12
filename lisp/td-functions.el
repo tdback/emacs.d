@@ -2,39 +2,7 @@
 
 ;;; Code:
 
-(defun td/display-startup-time ()
-  (message (if (daemonp)
-               "emacs daemon loaded in %s with %d garbage collections."
-             "emacs loaded in %s with %d garbage collections.")
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
-
-(defun td/set-font ()
-  (when (display-graphic-p)
-    (message "Setting font...")
-    (set-face-attribute 'default nil
-                        :font "Aporetic Sans Mono"
-                        :weight 'normal
-                        :height 200)
-    (set-face-attribute 'fixed-pitch nil
-                        :font "Aporetic Sans Mono"
-                        :weight 'normal
-                        :height 200)
-    (set-face-attribute 'variable-pitch nil
-                        :font "Aporetic Sans Mono"
-                        :weight 'normal
-                        :height 200)))
-
-(defun td/quit-if-not-in-macro ()
-  (interactive)
-  (if (or defining-kbd-macro executing-kbd-macro)
-      (progn
-        (if (region-active-p)
-            (deactivate-mark)
-          (message "Macro running. Can't quit.")))
-    (keyboard-quit)))
+;;; Functions
 
 (defun td/increment-number-at-point (&optional increment)
   "Increment number at point like vim's `C-a'."
@@ -57,20 +25,12 @@
       (replace-match (number-to-string (funcall change number operation)))
       (goto-char (- point 1)))))
 
-(defun td/disable-theme ()
-  "Disable all themes."
-  (interactive)
-  (dolist (theme custom-enabled-themes)
-    (disable-theme theme)))
+;;; Packages
 
-(defun td/toggle-theme ()
-  "Toggle between light and dark modes."
-  (interactive)
-  (let ((theme (if (eq (car custom-enabled-themes) 'ef-dark)
-                   'ef-day
-                 'ef-dark)))
-    (td/disable-theme)
-    (load-theme theme t)))
+(use-package custom-functions
+  :ensure nil
+  :bind (("C-x n a" . td/increment-number-at-point)
+         ("C-x n x" . td/decrement-number-at-point)))
 
 (provide 'td-functions)
 ;;; td-functions.el ends here
