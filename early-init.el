@@ -3,8 +3,8 @@
       gc-cons-percentage 0.6)
 
 (add-hook 'after-init-hook (lambda ()
-			     (setq gc-cons-threshold 100000000
-				   gc-cons-percentage 0.1)))
+			                       (setq gc-cons-threshold 100000000
+				                           gc-cons-percentage 0.1)))
 
 ;; Disable additional toolbars, scrollbars, etc.
 (menu-bar-mode -1)
