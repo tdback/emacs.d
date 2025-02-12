@@ -20,10 +20,5 @@
   :ensure t
   :hook (dired-mode . all-the-icons-dired-mode))
 
-(use-package dired-hide-dotfiles
-  :ensure t
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :bind (("H" . dired-hide-dotfiles-mode)))
-
 (provide 'td-dired)
 ;;; td-dired.el ends here
