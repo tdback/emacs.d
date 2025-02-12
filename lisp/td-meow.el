@@ -1,5 +1,9 @@
 ;;; td-meow.el --- making emacs purr -*- lexical-binding: t; -*-
 
+;;; Code:
+
+;;; Functions
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -87,6 +91,8 @@
    '("<escape>" . ignore))
   ;; Allow `C-g' to exit to NORMAL state, similar to how evil does it.
   (meow-define-keys 'insert '("C-g" . meow-insert-exit)))
+
+;;; Packages
 
 (use-package meow
   :ensure t
