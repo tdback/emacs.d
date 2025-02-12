@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+;;; Functions
+
 (defun td/org-font-setup ()
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.15)
@@ -40,6 +42,8 @@
   (visual-line-mode 1)
   (setq evil-auto-indent nil))
 
+;;; Packages
+
 (use-package org
   :ensure nil
   :hook (org-mode . td/org-mode-setup)
@@ -70,10 +74,10 @@
                                       ((todo "NEXT"
                                              ((org-agenda-overriding-header "Next Tasks")))))
                                      ("s" "Status"
-                                       (todo "ACTIVE"
+                                      ((todo "ACTIVE"
                                              ((org-agenda-overriding-header "In Progress")
                                               (org-agenda-files org-agenda-files)))
-                                      ((todo "BACKLOG"
+                                       (todo "BACKLOG"
                                              ((org-agenda-overriding-header "Backlog")
                                               (org-agenda-todo-list-sublevels nil)
                                               (org-agenda-files org-agenda-files)))
@@ -83,13 +87,13 @@
                                        (todo "COMPLETED"
                                              ((org-agenda-overriding-header "Completed")
                                               (org-agenda-files org-agenda-files)))
-                                      ((todo "PLAN"
+                                       (todo "PLAN"
                                              ((org-agenda-overriding-header "In Planning")
                                               (org-agenda-todo-list-sublevels nil)
                                               (org-agenda-files org-agenda-files)))
                                        (todo "READY"
                                              ((org-agenda-overriding-header "Ready for Work")
-                                              (org-agenda-files org-agenda-files)))))))
+                                              (org-agenda-files org-agenda-files))))))
         org-capture-templates '(("t" "Tasks")
                                 ("tt" "New Task" entry (file+olp (car org-agenda-files))
                                  "* TODO %?\n %i" :empty-lines 1)
