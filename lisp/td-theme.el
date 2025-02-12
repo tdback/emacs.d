@@ -43,6 +43,7 @@
                      (float-time
                       (time-subtract after-init-time before-init-time)))
              gcs-done))
+
 ;;; Packages
 
 (use-package doom-modeline
