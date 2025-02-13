@@ -18,6 +18,7 @@
   "Kill a line while keeping expressions balanced. When there's no complete
 sexp before the line end to delete, delete one sexp forward."
   (interactive)
+  (require 'puni)
   (puni-soft-delete-by-move (lambda ()
                               (if (eolp)
                                   (forward-char)
