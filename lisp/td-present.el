@@ -2,11 +2,7 @@
 
 ;;; Code:
 
-(use-package org-present
-  :ensure t
-  :hook ((org-present-mode                     . td/org-present-start)
-         (org-present-mode-quit                . td/org-present-end)
-         (org-present-after-navigate-functions . td/org-present-prepare-slide)))
+;;; Functions
 
 (defun td/org-present-start ()
   (setq-local face-remapping-alist
@@ -25,6 +21,14 @@
   (org-overview)
   (org-show-entry)
   (org-show-children))
+
+;;; Packages
+
+(use-package org-present
+  :ensure t
+  :hook ((org-present-mode                     . td/org-present-start)
+         (org-present-mode-quit                . td/org-present-end)
+         (org-present-after-navigate-functions . td/org-present-prepare-slide)))
 
 (provide 'td-present)
 ;;; td-present.el ends here
