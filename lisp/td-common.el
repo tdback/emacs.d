@@ -14,6 +14,16 @@
           (message "Macro running. Can't quit.")))
     (keyboard-quit)))
 
+(defun td/soft-kill-line ()
+  "Kill a line while keeping expressions balanced. When there's no complete
+sexp before the line end to delete, delete one sexp forward."
+  (interactive)
+  (puni-soft-delete-by-move (lambda ()
+                              (if (eolp)
+                                  (forward-char)
+                                (end-of-line)))
+                            nil 'within 'kill 'delete-one))
+
 ;;; Packages
 
 (use-package async
@@ -149,7 +159,9 @@
               ("C-M-t"                   . puni-transpose)
               ("C-M-?"                   . puni-convolute)
               ("C-M-z"                   . puni-squeeze)
-              ("C-w"                     . kill-region))
+              ("C-w"                     . kill-region)
+              ;; Make puni-kill-line less greedy.
+              ([remap puni-kill-line]    . td/soft-kill-line))
   :config
   (puni-global-mode t))
 
