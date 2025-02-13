@@ -129,6 +129,30 @@
             ("\\`\\(/tmp\\|/dev/shm\\)\\([^/]*/\\)*\\(.*\\)\\'" "\\3")
             ("." ,auto-save-dir t)))))
 
+(use-package puni
+  :ensure t
+  :hook (((eat-mode eshell-mode) . puni-disable-puni-mode)
+         (prog-mode              . puni-mode)
+         (puni-mode              . electric-pair-local-mode))
+  :bind (:map puni-mode-map
+              ([remap forward-sentence]  . puni-beginning-of-sexp)
+              ([remap backward-sentence] . puni-end-of-sexp)
+              ([remap forward-sexp]      . puni-forward-sexp-or-up-list)
+              ([remap backward-sexp]     . puni-backward-sexp-or-up-list)
+              ([remap kill-line]         . puni-kill-line)
+              ([remap mark-paragraph]    . puni-expand-region)
+              ("C-)"                     . puni-slurp-forward)
+              ("C-("                     . puni-slurp-backward)
+              ("C-}"                     . puni-barf-forward)
+              ("C-{"                     . puni-barf-backward)
+              ("M-("                     . puni-wrap-round)
+              ("C-M-t"                   . puni-transpose)
+              ("C-M-?"                   . puni-convolute)
+              ("C-M-z"                   . puni-squeeze)
+              ("C-w"                     . kill-region))
+  :config
+  (puni-global-mode t))
+
 (use-package savehist
   :ensure t
   :init
