@@ -53,7 +53,6 @@
   :bind (("M-c"     . capitalize-dwim)
          ("M-u"     . upcase-dwim)
          ("M-l"     . downcase-dwim)
-         ("C-x E"   . eshell)
          ("C-x M-t" . transpose-regions)
          ("C-g"     . td/quit-if-not-in-macro)))
 

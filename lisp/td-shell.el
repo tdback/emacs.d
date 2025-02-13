@@ -72,7 +72,8 @@ current line input."
 (use-package eshell
   :ensure nil
   :hook (eshell-first-time-mode . td/eshell-configure)
-  :bind (("C-l" . td/eshell-clear))
+  :bind (("C-x E" . eshell)
+         ("C-l"   . td/eshell-clear))
   :config
   (td/meow-insert-state 'eshell-mode))
 
