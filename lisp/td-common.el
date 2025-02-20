@@ -41,13 +41,13 @@ sexp before the line end to delete, delete one sexp forward."
 (use-package consult
   :ensure t
   :demand t
-  :bind (("M-s g"   . consult-ripgrep)
-         ("M-s f"   . consult-find)
-         ("M-s i"   . consult-imenu)
-         ("M-s l"   . consult-line)
-         ("C-x C-b" . consult-buffer)
+  :bind (("M-s g" . consult-ripgrep)
+         ("M-s f" . consult-find)
+         ("M-s i" . consult-imenu)
+         ("M-s l" . consult-line)
+         ("C-x b" . consult-buffer)
          :map minibuffer-local-map
-         ("C-r"     . consult-history)))
+         ("C-r"   . consult-history)))
 
 (use-package consult-dir
   :ensure t
@@ -64,6 +64,7 @@ sexp before the line end to delete, delete one sexp forward."
   :bind (("M-c"     . capitalize-dwim)
          ("M-u"     . upcase-dwim)
          ("M-l"     . downcase-dwim)
+         ("C-x C-b" . ibuffer)
          ("C-x M-t" . transpose-regions)
          ("C-g"     . td/quit-if-not-in-macro)))
 
