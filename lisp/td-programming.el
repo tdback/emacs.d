@@ -46,14 +46,14 @@
 (use-package eglot
   :ensure t
   :defer t
+  :custom
+  (eglot-autoshutdown t)
   :config
-  (setq eglot-autoshutdown t
-        elgot-ignored-server-capabilities '(:inlayHintProvider))
-  (add-to-list 'eglot-server-programs '(c-mode       . ("clangd")))
-  (add-to-list 'eglot-server-programs '(c++-mode     . ("clangd")))
-  (add-to-list 'eglot-server-programs '(nix-mode     . ("nixd")))
-  (add-to-list 'eglot-server-programs '(python-mode  . ("pylsp")))
-  (add-to-list 'eglot-server-programs '(rust-mode    . ("rust-analyzer")))
+  (add-to-list 'eglot-server-programs '(c-mode      . ("clangd")))
+  (add-to-list 'eglot-server-programs '(c++-mode    . ("clangd")))
+  (add-to-list 'eglot-server-programs '(nix-mode    . ("nixd")))
+  (add-to-list 'eglot-server-programs '(python-mode . ("pylsp")))
+  (add-to-list 'eglot-server-programs '(rust-mode   . ("rust-analyzer")))
   :hook
   ((c-mode      . eglot-ensure)
    (c++-mode    . eglot-ensure)
@@ -70,6 +70,10 @@
 ;;; Modes
 
 (use-package dockerfile-mode
+  :ensure t
+  :defer t)
+
+(use-package haskell-mode
   :ensure t
   :defer t)
 
@@ -102,13 +106,27 @@
 ;;; Tooling & Enhancements
 
 (use-package compile
-  ;; Using `C-u' before recompile acts like `M-x compile'.
-  :bind (("C-x C-m" . recompile))
+  :bind (("C-x C-m" . compile))
   :custom
-  (compilation-scroll-output t))
+  (compilation-scroll-output t)
+  ;; By default, use `compile' to search for text in files and display results
+  ;; in a separate buffer. I find this workflow to be a bit nicer than
+  ;; `consult-ripgrep' when searching outside of the current directory tree.
+  (compile-command "rg -nS --no-heading "))
+
+(use-package devdocs
+  :ensure t
+  :defer t
+  :bind (("C-h D d" . devdocs-lookup)
+         ("C-h D i" . devdocs-install)
+         ("C-h D x" . devdocs-delete)
+         ("C-h D u" . devdocs-update-all)))
 
 (use-package direnv
   :ensure t
+  :custom
+  (direnv-always-show-summary t)
+  (direnv-show-paths-in-summary t)
   :config
   (direnv-mode))
 
