@@ -71,9 +71,12 @@ current line input."
 
 (use-package eshell
   :ensure nil
-  :hook (eshell-first-time-mode . td/eshell-configure)
-  :bind (("C-x E" . eshell)
-         ("C-l"   . td/eshell-clear))
+  :hook ((eshell-first-time-mode . td/eshell-configure)
+         ;; Workaround to bind keys locally to an eshell buffer.
+         ;; Apparently `:map eshell-mode-map' in `:bind' won't work.
+         (eshell-mode . (lambda ()
+                          (define-key eshell-mode-map (kbd "C-l") #'td/eshell-clear))))
+  :bind (("C-x E" . eshell))
   :config
   (td/meow-insert-state 'eshell-mode))
 
