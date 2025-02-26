@@ -63,8 +63,8 @@
         org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t
-        org-agenda-files '("~/Documents/org/tasks.org"
-                           "~/Documents/org/ideas.org")
+        org-agenda-files '("~/Org/tasks.org"
+                           "~/Org/ideas.org")
         org-agenda-custom-commands '(("d" "Dashboard"
                                       ((agenda ""
                                                ((org-deadline-warning-days 7)))
