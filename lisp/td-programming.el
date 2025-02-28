@@ -109,10 +109,7 @@
   :bind (("C-x C-m" . compile))
   :custom
   (compilation-scroll-output t)
-  ;; By default, use `compile' to search for text in files and display results
-  ;; in a separate buffer. I find this workflow to be a bit nicer than
-  ;; `consult-ripgrep' when searching outside of the current directory tree.
-  (compile-command "rg -nS --no-heading "))
+  (compile-command ""))
 
 (use-package devdocs
   :ensure t
