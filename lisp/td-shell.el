@@ -40,14 +40,14 @@
   ;; Truncate buffer for performance.
   (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
 
-  (setq eshell-prompt-function           'td/eshell-prompt
-        eshell-prompt-regexp             "^.+ λ "
-        eshell-history-size              10000
-        eshell-buffer-maximum-lines      10000
-        eshell-hist-ignoredups           t
-        eshell-highlight-prompt          t
+  (setq eshell-prompt-function 'td/eshell-prompt
+        eshell-prompt-regexp "^.+ λ "
+        eshell-highlight-prompt t
+        eshell-hist-ignoredups t
+        eshell-history-size 10000
+        eshell-buffer-maximum-lines 10000
         eshell-scroll-to-bottom-on-input t
-        eshell-prefer-lisp-functions     nil))
+        eshell-prefer-lisp-functions nil))
 
 (defun td/eshell-clear ()
   "Allow the user to clear the current eshell buffer while retaining the
