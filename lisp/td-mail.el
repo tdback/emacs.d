@@ -1,4 +1,4 @@
-;;; td-mu4e.el --- the superior email client -*- lexical-binding: t; -*-
+;;; td-mail.el --- the superior email client -*- lexical-binding: t; -*-
 
 ;;; Code:
 
@@ -65,5 +65,5 @@
                                  :with-author nil
                                  :with-toc nil)))
 
-(provide 'td-mu4e)
-;;; td-mu4e.el ends here
+(provide 'td-mail)
+;;; td-mail.el ends here

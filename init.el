@@ -23,13 +23,13 @@
 ;;; Package Imports
 
 ;; Load custom modules.
-(add-to-list 'load-path '"~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (require 'td-common)
 (require 'td-dired)
 (require 'td-functions)
+(require 'td-mail)
 (require 'td-meow)
-(require 'td-mu4e)
 (require 'td-org)
 (require 'td-present)
 (require 'td-programming)
