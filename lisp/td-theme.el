@@ -4,6 +4,21 @@
 
 ;;; Functions
 
+(defun td/ef-toggle-theme ()
+  "Toggles the current ef-theme. If a ef-theme isn't currently
+enabled, set the ef-theme to the dark variant."
+  (interactive)
+  (let ((dark-theme    'ef-dream)
+        (light-theme   'ef-arbutus)
+        (current-theme (car custom-enabled-themes)))
+    ;; Disable all active themes before setting a new one.
+    (dolist (theme custom-enabled-themes)
+      (disable-theme theme))
+    (cond
+     ((eql current-theme light-theme) (load-theme dark-theme t))
+     ((eql current-theme dark-theme)  (load-theme light-theme t))
+     (t (load-theme dark-theme t)))))
+
 (defun td/set-font ()
   (when (display-graphic-p)
     (message "Setting font...")
@@ -20,52 +35,22 @@
                         :weight 'normal
                         :height 200)))
 
-(defun td/disable-theme ()
-  "Disable all currently enabled themes."
-  (interactive)
-  (dolist (theme custom-enabled-themes)
-    (disable-theme theme)))
-
-(defun td/toggle-theme ()
-  "Toggle between light and dark modes."
-  (interactive)
-  (let ((theme (if (eq (car custom-enabled-themes) 'ef-dark)
-                   'ef-day
-                 'ef-dark)))
-    (td/disable-theme)
-    (load-theme theme t)))
-
-(defun td/display-startup-time ()
-    (message (if (daemonp)
-                 "emacs daemon loaded in %s with %d garbage collections."
-               "emacs loaded in %s with %d garbage collections.")
-             (format "%.2f seconds"
-                     (float-time
-                      (time-subtract after-init-time before-init-time)))
-             gcs-done))
-
 ;;; Packages
-
-(use-package doom-modeline
-  :ensure t
-  :init
-  (doom-modeline-mode 1)
-  :custom
-  (doom-modeline-height 10)
-  (doom-modeline-buffer-encoding nil)
-  (doom-modeline-modal-icon nil))
 
 (use-package ef-themes
   :ensure t
-  :config
-  ;; By default start with a light theme.
-  (load-theme 'ef-day t))
+  :init
+  (load-theme 'ef-dream t))
 
 (use-package emacs
   :ensure nil
+  :hook ((emacs-startup-hook . (lambda ()
+                                 (message "emacs loaded in %s with %d garbage collections."
+                                          (format "%.2f seconds"
+                                                  (float-time
+                                                   (time-subtract after-init-time before-init-time)))
+                                          gcs-done))))
   :config
-  (add-hook 'emacs-startup-hook #'td/display-startup-time)
-
   ;; Fix font issues when opening a client window.
   (if (daemonp)
       (add-hook 'after-make-frame-functions (lambda (frame)
@@ -89,7 +74,23 @@
   (dolist (mode '(emacs-lisp-mode-hook
                   lisp-mode-hook
                   scheme-mode-hook))
-    (add-hook mode 'prettify-symbols-mode)))
+    (add-hook mode 'prettify-symbols-mode))
+
+  ;; Cleanup the modeline.
+  (setq-default mode-line-format '("%e" mode-line-front-space
+                                   (:propertize
+                                    ("" mode-line-mule-info mode-line-client mode-line-modified mode-line-remote))
+                                   mode-line-frame-identification
+                                   mode-line-buffer-identification
+                                   "   "
+                                   mode-line-position
+                                   mode-line-format-right-align
+                                   "   "
+                                   (vc-mode vc-mode)
+                                   "   "
+                                   mode-line-modes
+                                   mode-line-misc-info
+                                   mode-line-end-spaces)))
 
 (provide 'td-theme)
 ;;; td-theme.el ends here
