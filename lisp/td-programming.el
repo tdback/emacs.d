@@ -2,71 +2,6 @@
 
 ;;; Code:
 
-;;; Completion
-
-(use-package cape
-  :defer 10
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  ;; Nice completion to have available everywhere.
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  :config
-  ;; Silence then pcomplete capf, no errors or messages.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-  ;; Ensure that pcomplete does not write to the buffer and behaves as a pure
-  ;; `completion-at-point-function'.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
-
-(use-package corfu
-  :ensure t
-  :custom
-  (corfu-cycle t)                     ; Cycle through candidates
-  (corfu-auto t)                      ; Enable auto completion.
-  (corfu-auto-prefix 2)               ; Display completion options after two characters.
-  (corfu-auto-delay 0.0)              ; Don't delay.
-  (corfu-quit-at-boundary 'separator) ; Quit if no separator has been inserted at the boundary.
-  (corfu-echo-documentation 0.25)     ; Echo docs shortly after options.
-  (corfu-preview-current 'insert)     ; Auto-insert the current completion.
-  (corfu-preselect-first nil)         ; Don't select a completion right away.
-  :bind (:map corfu-map
-              ("M-SPC"      . corfu-insert-separator)
-              ("C-n"        . corfu-next)
-              ([tab]        . corfu-next)
-              ("C-p"        . corfu-previous)
-              ([backtab]    . corfu-previous)
-              ("S-<return>" . corfu-insert)
-              ("RET"        . nil))
-  :init
-  ;; Use corfu everywhere.
-  (global-corfu-mode)
-  ;; Save completion history for better sorting.
-  (corfu-history-mode))
-
-(use-package eglot
-  :ensure t
-  :defer t
-  :custom
-  (eglot-autoshutdown t)
-  :config
-  (add-to-list 'eglot-server-programs '(c-mode      . ("clangd")))
-  (add-to-list 'eglot-server-programs '(c++-mode    . ("clangd")))
-  (add-to-list 'eglot-server-programs '(nix-mode    . ("nixd")))
-  (add-to-list 'eglot-server-programs '(python-mode . ("pylsp")))
-  (add-to-list 'eglot-server-programs '(rust-mode   . ("rust-analyzer")))
-  :hook
-  ((c-mode      . eglot-ensure)
-   (c++-mode    . eglot-ensure)
-   (nix-mode    . eglot-ensure)
-   (python-mode . eglot-ensure)
-   (rust-mode   . eglot-ensure)))
-
-(use-package orderless
-  :ensure t
-  :commands (orderless)
-  :custom
-  (completion-styles '(orderless flex)))
-
 ;;; Modes
 
 (use-package dockerfile-mode
@@ -126,6 +61,24 @@
   (direnv-show-paths-in-summary t)
   :config
   (direnv-mode))
+
+(use-package eglot
+  :ensure t
+  :defer t
+  :custom
+  (eglot-autoshutdown t)
+  :config
+  (add-to-list 'eglot-server-programs '(c-mode      . ("clangd")))
+  (add-to-list 'eglot-server-programs '(c++-mode    . ("clangd")))
+  (add-to-list 'eglot-server-programs '(nix-mode    . ("nixd")))
+  (add-to-list 'eglot-server-programs '(python-mode . ("pylsp")))
+  (add-to-list 'eglot-server-programs '(rust-mode   . ("rust-analyzer")))
+  :hook
+  ((c-mode      . eglot-ensure)
+   (c++-mode    . eglot-ensure)
+   (nix-mode    . eglot-ensure)
+   (python-mode . eglot-ensure)
+   (rust-mode   . eglot-ensure)))
 
 (use-package magit
   :ensure t

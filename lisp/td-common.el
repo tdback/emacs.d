@@ -38,6 +38,59 @@ sexp before the line end to delete, delete one sexp forward."
   :custom
   (avy-timeout-seconds 0.25))
 
+(use-package cape
+  :defer 10
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  ;; Nice completion to have available everywhere.
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  :config
+  ;; Silence then pcomplete capf, no errors or messages.
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+  ;; Ensure that pcomplete does not write to the buffer and behaves as a pure
+  ;; `completion-at-point-function'.
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+
+(use-package completion-preview
+  :ensure nil
+  :demand t
+  :hook ((prog-mode . completion-preview-mode)
+         (jinx-mode . completion-preview-mode))
+  :bind (:map completion-preview-active-mode-map
+              ("C-i" . copmletion-preview-insert)
+              ("M-n" . completion-preview-next-candidate)
+              ("M-p" . completion-preview-prev-candidate))
+  :custom
+  (completion-preview-minimum-symbol-length 2))
+
+(use-package corfu
+  :disabled
+  :ensure t
+  :custom
+  (corfu-cycle t)                      ; Cycle through candidates
+  (corfu-auto t)                       ; Enable auto completion.
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.1)
+  (corfu-popupinfo-delay '(0.5 . 0.2))
+  (corfu-quit-at-boundary 'separator)
+  (corfu-echo-documentation 0.25)
+  (corfu-preview-current 'insert)      ; Insert previewed candidate.
+  (corfu-preselect 'prompt)
+  (corfu-on-exact-match nil)
+  :bind (:map corfu-map
+              ("M-SPC"      . corfu-insert-separator)
+              ("C-n"        . corfu-next)
+              ([tab]        . corfu-next)
+              ("C-p"        . corfu-previous)
+              ([backtab]    . corfu-previous)
+              ("S-<return>" . corfu-insert)
+              ("RET"        . nil))
+  :init
+  (global-corfu-mode)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode))
+
 (use-package consult
   :ensure t
   :demand t
@@ -111,6 +164,13 @@ sexp before the line end to delete, delete one sexp forward."
   :config
   (marginalia-mode))
 
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-M-." . mc/mark-next-like-this)
+         ("C-M-," . mc/mark-previous-like-this))
+  :custom
+  (mc/always-run-for-all t))
+
 (use-package no-littering
   :ensure t
   :demand t
@@ -140,6 +200,12 @@ sexp before the line end to delete, delete one sexp forward."
           `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,(concat temporary-file-directory "\\2") t)
             ("\\`\\(/tmp\\|/dev/shm\\)\\([^/]*/\\)*\\(.*\\)\\'" "\\3")
             ("." ,auto-save-dir t)))))
+
+(use-package orderless
+  :ensure t
+  :commands (orderless)
+  :custom
+  (completion-styles '(orderless flex)))
 
 (use-package puni
   :ensure t
