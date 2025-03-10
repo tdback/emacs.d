@@ -65,9 +65,7 @@ current line input."
   :bind (("C-x S" . eat))
   :custom
   (eat-enable-autoline-mode t)
-  (eat-kill-buffer-on-exit t)
-  :config
-  (td/meow-insert-state 'eat-mode))
+  (eat-kill-buffer-on-exit t))
 
 (use-package eshell
   :ensure nil
@@ -76,9 +74,7 @@ current line input."
          ;; Apparently `:map eshell-mode-map' in `:bind' won't work.
          (eshell-mode . (lambda ()
                           (define-key eshell-mode-map (kbd "C-l") #'td/eshell-clear))))
-  :bind (("C-x E" . eshell))
-  :config
-  (td/meow-insert-state 'eshell-mode))
+  :bind (("C-x E" . eshell)))
 
 (use-package eshell-syntax-highlighting
   :ensure t

@@ -7,9 +7,6 @@
   :bind (("C-c m m" . mu4e)
          ("C-c m c" . 'mu4e-compose-new)
          ("C-c m u" . 'mu4e-update-mail-and-index))
-  :hook ((mu4e-main-mode . (lambda ()
-                             (when (meow-mode)
-                               (meow-insert-mode)))))
   :config
   (setq mu4e-maildir "~/Mail")
 

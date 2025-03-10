@@ -29,7 +29,6 @@
 (require 'td-dired)
 (require 'td-functions)
 (require 'td-mail)
-(require 'td-meow)
 (require 'td-org)
 (require 'td-present)
 (require 'td-programming)
