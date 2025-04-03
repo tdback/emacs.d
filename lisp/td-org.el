@@ -4,43 +4,10 @@
 
 ;;; Functions
 
-(defun td/org-font-setup ()
-  (dolist (face '((org-level-1 . 1.2)
-                  (org-level-2 . 1.15)
-                  (org-level-3 . 1.1)
-                  (org-level-4 . 1.0)))
-    (set-face-attribute (car face)
-                        nil
-                        :font "Aporetic Sans Mono"
-                        :weight 'regular
-                        :height (cdr face)))
-  (set-face-attribute 'org-block
-                      nil
-                      :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code
-                      nil
-                      :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table
-                      nil
-                      :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim
-                      nil
-                      :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword
-                      nil
-                      :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line
-                      nil
-                      :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox
-                      nil
-                      :inherit 'fixed-pitch))
-
 (defun td/org-mode-setup ()
   (org-indent-mode)
   (variable-pitch-mode 1)
-  (visual-line-mode 1)
-  (setq evil-auto-indent nil))
+  (visual-line-mode 1))
 
 ;;; Packages
 
@@ -113,8 +80,7 @@
                                       "CANCELED(k@)"))
         org-refile-targets '(("archive.org" :maxlevel . 1)
                              ("tasks.org" :maxlevel . 1)))
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-  (td/org-font-setup))
+  (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
 (use-package org-appear
   :ensure t
