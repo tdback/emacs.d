@@ -8,6 +8,17 @@
   :ensure t
   :defer t)
 
+(use-package go-mode
+  :ensure t
+  :defer t
+  :hook (before-save . gofmt-before-save))
+
+(use-package js-mode
+  :ensure nil
+  :defer t
+  :custom
+  (js-indent-level 2))
+
 (use-package haskell-mode
   :ensure t
   :defer t)
@@ -34,7 +45,17 @@
   :ensure t
   :defer t)
 
+(use-package typescript-mode
+  :ensure t
+  :defer t
+  :custom
+  (typescript-indent-level 2))
+
 (use-package yaml-mode
+  :ensure t
+  :defer t)
+
+(use-package zig-mode
   :ensure t
   :defer t)
 
@@ -68,17 +89,25 @@
   :custom
   (eglot-autoshutdown t)
   :config
-  (add-to-list 'eglot-server-programs '(c-mode      . ("clangd")))
-  (add-to-list 'eglot-server-programs '(c++-mode    . ("clangd")))
-  (add-to-list 'eglot-server-programs '(nix-mode    . ("nixd")))
-  (add-to-list 'eglot-server-programs '(python-mode . ("pylsp")))
-  (add-to-list 'eglot-server-programs '(rust-mode   . ("rust-analyzer")))
+  (add-to-list 'eglot-server-programs '(c-mode          . ("clangd")))
+  (add-to-list 'eglot-server-programs '(c++-mode        . ("clangd")))
+  (add-to-list 'eglot-server-programs '(go-mode         . ("gopls")))
+  (add-to-list 'eglot-server-programs '(js-mode         . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(nix-mode        . ("nixd")))
+  (add-to-list 'eglot-server-programs '(python-mode     . ("pylsp")))
+  (add-to-list 'eglot-server-programs '(rust-mode       . ("rust-analyzer")))
+  (add-to-list 'eglot-server-programs '(zig-mode        . ("zls")))
+  (add-to-list 'eglot-server-programs '(typescript-mode . ("typescript-language-server" "--stdio")))
   :hook
-  ((c-mode      . eglot-ensure)
-   (c++-mode    . eglot-ensure)
-   (nix-mode    . eglot-ensure)
-   (python-mode . eglot-ensure)
-   (rust-mode   . eglot-ensure)))
+  ((c-mode          . eglot-ensure)
+   (c++-mode        . eglot-ensure)
+   (go-mode         . eglot-ensure)
+   (js-mode         . eglot-ensure)
+   (nix-mode        . eglot-ensure)
+   (python-mode     . eglot-ensure)
+   (rust-mode       . eglot-ensure)
+   (typescript-mode . eglot-ensure)
+   (zig-mode        . eglot-ensure)))
 
 (use-package magit
   :ensure t
