@@ -55,8 +55,7 @@ sexp before the line end to delete, delete one sexp forward."
 (use-package completion-preview
   :ensure nil
   :demand t
-  :hook ((prog-mode . completion-preview-mode)
-         (jinx-mode . completion-preview-mode))
+  :hook (prog-mode . completion-preview-mode)
   :bind (:map completion-preview-active-mode-map
               ("C-i" . completion-preview-insert)
               ("M-n" . completion-preview-next-candidate)
